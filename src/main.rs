@@ -34,7 +34,7 @@ fn main() {
     println!("{:.2?} elapsed", now.elapsed());
 
     println!("Writing to file...");
-    output.save("haha.png").unwrap();
+    output.save("output.png").unwrap();
 }
 
 fn fill(mut a: RgbImage, config: Config) -> RgbImage {
@@ -86,8 +86,8 @@ fn julia(mut z: Complex<f64>, c: Complex<f64>) -> u8 {
     for n in 0..iterations {
         z = z * z + c;
         if z.norm() >= 2.0 {
-            // return n + 1 - (z.norm().ln().log2() as u8);
-            return n;
+            return n + 1 - (z.norm().ln().log2() as u8);
+            // return n;
         }
     }
     0
