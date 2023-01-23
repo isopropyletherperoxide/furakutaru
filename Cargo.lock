@@ -159,7 +159,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "fractal"
+name = "furakutaru"
 version = "0.1.0"
 dependencies = [
  "image",
