@@ -1,6 +1,11 @@
 # furakutaru
 Fractal Generator (originally in Go) rewritten in Rust
 
+## Examples
+![Julia Example](
+
+
+![Mandelbrot Example](https://github.com/isopropyletherperoxide/furakutaru/blob/main/example/mandelbrot.png?raw=true)
 
 ### Installation
 Run ``cargo build --release`` in the project folder.
