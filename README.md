@@ -2,10 +2,9 @@
 Fractal Generator (originally in Go) rewritten in Rust
 
 ## Examples
-![Julia Example](
+![Julia Example](https://github.com/isopropyletherperoxide/furakutaru/blob/main/examples/julia.png?raw=true)
 
-
-![Mandelbrot Example](https://github.com/isopropyletherperoxide/furakutaru/blob/main/example/mandelbrot.png?raw=true)
+![Mandelbrot Example](https://github.com/isopropyletherperoxide/furakutaru/blob/main/examples/mandelbrot.png?raw=true)
 
 ### Installation
 Run ``cargo build --release`` in the project folder.
