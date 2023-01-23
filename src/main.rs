@@ -1,6 +1,7 @@
 use image::{Rgb, RgbImage};
 use num::complex::Complex;
 use serde::Deserialize;
+use toml;
 
 #[derive(Deserialize, Debug, Copy, Clone)]
 enum FractalType {
