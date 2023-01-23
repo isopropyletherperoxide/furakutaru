@@ -2,7 +2,7 @@
 Fractal Generator (originally in Go) rewritten in Rust
 
 ## Examples
-![Julia Example](https://github.com/isopropyletherperoxide/furakutaru/blob/main/examples/julia.png?raw=true)
+<img alt="Julia Example" src="https://github.com/isopropyletherperoxide/furakutaru/blob/main/examples/julia.png?raw=true" width=512>
 
 ![Mandelbrot Example](https://github.com/isopropyletherperoxide/furakutaru/blob/main/examples/mandelbrot.png?raw=true)
 
