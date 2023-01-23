@@ -1,7 +1,7 @@
 # furakutaru
 Fractal Generator (originally in Go) rewritten in Rust
 
-## Examples
+## Examples (click for full res)
 <img alt="Julia Example" src="https://github.com/isopropyletherperoxide/furakutaru/blob/main/examples/julia.png?raw=true" width=256>
 
 <img alt="Mandelbrot Example" src="https://github.com/isopropyletherperoxide/furakutaru/blob/main/examples/mandelbrot.png?raw=true" width=256>

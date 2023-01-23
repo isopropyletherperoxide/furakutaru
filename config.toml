@@ -1,6 +1,10 @@
-width = 2048
-height = 2048
+width = 1024
+height = 1024
 scale_fac = 1
-fractal_type = "Mandelbrot"
-julia_r = 0.3
-julia_i = 0.6
+fractal_type = "Julia"
+julia_r = -1.476
+julia_i = 0
+contrast = 2
+colors = false
+colors_saturation = 1.0
+colors_value = 0.5

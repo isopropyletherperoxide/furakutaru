@@ -1,3 +1,6 @@
+use std::str::FromStr;
+
+use color_processing::Color;
 use image::{Rgb, RgbImage};
 use num::complex::Complex;
 use serde::Deserialize;
@@ -17,6 +20,10 @@ struct Config {
     fractal_type: FractalType,
     julia_r: f64,
     julia_i: f64,
+    contrast: u8,
+    colors: bool,
+    colors_saturation: f64,
+    colors_value: f64,
 }
 
 fn main() {
@@ -54,19 +61,39 @@ fn fill(mut a: RgbImage, config: Config) -> RgbImage {
             c = Complex::new(0.0, 0.0);
         }
     }
+
     for y in 0..config.height {
         fy = y as f64 / config.height as f64 * (ymax - ymin) + ymin;
         for x in 0..config.width {
             fx = x as f64 / config.width as f64 * (xmax - xmin) + xmin;
             z = Complex::new(fx, fy);
             match config.fractal_type {
-                FractalType::Julia => z_bright = julia(z, c),
-                FractalType::Mandelbrot => z_bright = mandelbrot(z),
+                FractalType::Julia => z_bright = num::clamp(julia(z, c) * config.contrast, 0, 255),
+                FractalType::Mandelbrot => {
+                    z_bright = num::clamp(mandelbrot(z) * config.contrast, 0, 255)
+                }
             }
-            a.put_pixel(x, y, Rgb([z_bright, z_bright, z_bright]));
+            draw_pixel(&mut a, x, y, z_bright, config.colors, config.colors_saturation, config.colors_value);
         }
     }
     a
+}
+
+fn draw_pixel(a: &mut RgbImage, x: u32, y: u32, z_bright: u8, colors: bool, saturation: f64, value: f64) {
+    match colors {
+        true => {
+            let pix_color = Color::new_hsl(z_bright as f64, saturation, value).to_rgb_string();
+            let pix_output = Color::from_str(&pix_color).unwrap();
+            a.put_pixel(
+                x,
+                y,
+                Rgb([pix_output.red, pix_output.green, pix_output.blue]),
+            );
+        }
+        _ => {
+            a.put_pixel(x, y, Rgb([z_bright, z_bright, z_bright]));
+        }
+    }
 }
 
 fn mandelbrot(z: Complex<f64>) -> u8 {
