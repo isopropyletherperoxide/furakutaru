@@ -1,0 +1,6 @@
+width = 2048
+height = 2048
+scale_fac = 1
+fractal_type = "Julia"
+julia_r = 0.3
+julia_i = 0.6
