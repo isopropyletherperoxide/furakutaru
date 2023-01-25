@@ -76,11 +76,9 @@ fn fill(mut a: RgbImage, config: Config) -> RgbImage {
         for x in 0..config.width {
             fx = x as f64 / config.width as f64 * (xmax - xmin) + xmin;
             z = Complex::new(fx, fy);
-            match config.fractal_type { // TODO: REPLACE num::clamp with wrapping primitives
-                FractalType::Julia => z_bright = num::clamp(julia(z, c) * config.contrast, 0, 255),
-                FractalType::Mandelbrot => {
-                    z_bright = num::clamp(mandelbrot(z) * config.contrast, 0, 255)
-                }
+            match config.fractal_type {
+                FractalType::Julia => z_bright = julia(z, c).saturating_mul(config.contrast),
+                FractalType::Mandelbrot => z_bright = mandelbrot(z).saturating_mul(config.contrast),
             }
             draw_pixel(
                 &mut a,
@@ -124,8 +122,9 @@ fn draw_pixel(
 fn mandelbrot(z: Complex<f64>) -> u8 {
     let iterations = 200;
     let mut v: Complex<f64> = Complex::new(0.0, 0.0);
-    for n in 0..iterations { // MAYBE: Convert this to an iterator for rayon sometime
-        v = v * v + z;
+    for n in 0..iterations {
+        // MAYBE: Convert this to an iterator for rayon sometime
+        v = v.powu(2) + z;
         if v.norm() > 2.0 {
             // return n;
             return n + 1 - (z.norm().ln().log2() as u8);
@@ -137,9 +136,9 @@ fn mandelbrot(z: Complex<f64>) -> u8 {
 fn julia(mut z: Complex<f64>, c: Complex<f64>) -> u8 {
     let iterations = 200;
     for n in 0..iterations {
-        z = z * z + c;
+        z = z * z * z * z + c;
         if z.norm() >= 2.0 {
-            return n + 1 - (z.norm().ln().log2() as u8);
+            return n + 8 - (z.norm().ln().log2() as u8);
             // return n;
         }
     }
