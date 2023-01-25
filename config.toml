@@ -1,10 +1,10 @@
-width = 1024
-height = 1024
+width = 2048
+height = 2048
 scale_fac = 1
 fractal_type = "Mandelbrot"
 julia_r = -1.476
 julia_i = 0
 contrast = 1
-colors = false
+colors = true
 colors_saturation = 1.0
 colors_value = 0.5

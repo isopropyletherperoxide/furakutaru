@@ -127,7 +127,8 @@ fn mandelbrot(z: Complex<f64>) -> u8 {
     for n in 0..iterations { // MAYBE: Convert this to an iterator for rayon sometime
         v = v * v + z;
         if v.norm() > 2.0 {
-            return n;
+            // return n;
+            return n + 1 - (z.norm().ln().log2() as u8);
         };
     }
     255
