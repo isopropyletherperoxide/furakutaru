@@ -1,9 +1,9 @@
-use std::str::FromStr;
-
 use color_processing::Color;
 use image::{Rgb, RgbImage};
 use num::complex::Complex;
 use serde::Deserialize;
+use std::env::args;
+use std::{borrow::Borrow, str::FromStr};
 use toml;
 
 #[derive(Deserialize, Debug, Copy, Clone)]
@@ -28,6 +28,13 @@ struct Config {
 
 fn main() {
     use std::time::Instant;
+    let args: Vec<_> = args().collect();
+    let filename: &str;
+    if args.len() > 1 {
+        filename = args[1].borrow();
+    } else {
+        filename = "output.png";
+    }
     let now = Instant::now();
 
     let config_file = std::fs::read_to_string("config.toml").unwrap();
@@ -40,8 +47,10 @@ fn main() {
 
     println!("{:.2?} elapsed", now.elapsed());
 
+    let now2 = Instant::now();
     println!("Writing to file...");
-    output.save("output.png").unwrap();
+    println!("{:.2?} elapsed", now2.elapsed());
+    output.save(filename).expect("Error while saving file!");
 }
 
 fn fill(mut a: RgbImage, config: Config) -> RgbImage {
@@ -67,19 +76,35 @@ fn fill(mut a: RgbImage, config: Config) -> RgbImage {
         for x in 0..config.width {
             fx = x as f64 / config.width as f64 * (xmax - xmin) + xmin;
             z = Complex::new(fx, fy);
-            match config.fractal_type {
+            match config.fractal_type { // TODO: REPLACE num::clamp with wrapping primitives
                 FractalType::Julia => z_bright = num::clamp(julia(z, c) * config.contrast, 0, 255),
                 FractalType::Mandelbrot => {
                     z_bright = num::clamp(mandelbrot(z) * config.contrast, 0, 255)
                 }
             }
-            draw_pixel(&mut a, x, y, z_bright, config.colors, config.colors_saturation, config.colors_value);
+            draw_pixel(
+                &mut a,
+                x,
+                y,
+                z_bright,
+                config.colors,
+                config.colors_saturation,
+                config.colors_value,
+            );
         }
     }
     a
 }
 
-fn draw_pixel(a: &mut RgbImage, x: u32, y: u32, z_bright: u8, colors: bool, saturation: f64, value: f64) {
+fn draw_pixel(
+    a: &mut RgbImage,
+    x: u32,
+    y: u32,
+    z_bright: u8,
+    colors: bool,
+    saturation: f64,
+    value: f64,
+) {
     match colors {
         true => {
             let pix_color = Color::new_hsl(z_bright as f64, saturation, value).to_rgb_string();
@@ -99,7 +124,7 @@ fn draw_pixel(a: &mut RgbImage, x: u32, y: u32, z_bright: u8, colors: bool, satu
 fn mandelbrot(z: Complex<f64>) -> u8 {
     let iterations = 200;
     let mut v: Complex<f64> = Complex::new(0.0, 0.0);
-    for n in 0..iterations {
+    for n in 0..iterations { // MAYBE: Convert this to an iterator for rayon sometime
         v = v * v + z;
         if v.norm() > 2.0 {
             return n;
