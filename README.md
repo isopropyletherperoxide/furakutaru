@@ -13,9 +13,12 @@ Run ``cargo build --release`` in the project folder.
 Edit the ``config.toml`` file to configure the fractal generator
 #### Options
 - ``width``, ``height`` (``int``): width and height of the output image
-- ``scale_fac`` (float):  multiplier for scale of the fractal, the lower the more zoomed in the fractal
-- ``fractal_type`` (string): type of fractal, either ``"Mandelbrot"`` or ``"Julia"`` 
-- ``julia_r``, ``julia_i`` (float): real and imaginary parts of the constant part of the julia set equation
-
+- ``scale_fac`` (``float``):  multiplier for scale of the fractal, the lower the more zoomed in the fractal
+- ``fractal_type`` (``string``): type of fractal, either ``"Mandelbrot"`` or ``"Julia"`` 
+- ``julia_r``, ``julia_i`` (``float``): real and imaginary parts of the constant part of the julia set equation
+- ``contrast`` (``int``): brightness multiplier
+- ``colors`` (``bool``): turn the coloring on and off
+- ``colors_saturation`` (``float``): saturation parameter for the colors 
+- ``colors_value`` (``float``): value parameter for the colors
 
 
