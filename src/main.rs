@@ -73,6 +73,9 @@ fn fill(mut a: RgbImage, config: Config) -> RgbImage {
 
     for y in 0..config.height {
         fy = y as f64 / config.height as f64 * (ymax - ymin) + ymin;
+        if y == config.height / 2 {
+            println!("Halfway there!");
+        }
         for x in 0..config.width {
             fx = x as f64 / config.width as f64 * (xmax - xmin) + xmin;
             z = Complex::new(fx, fy);
@@ -136,7 +139,7 @@ fn mandelbrot(z: Complex<f64>) -> u8 {
 fn julia(mut z: Complex<f64>, c: Complex<f64>) -> u8 {
     let iterations = 200;
     for n in 0..iterations {
-        z = z * z * z * z + c;
+        z = z.powu(2) + c;
         if z.norm() >= 2.0 {
             return n + 8 - (z.norm().ln().log2() as u8);
             // return n;

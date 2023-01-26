@@ -1,10 +1,10 @@
-width = 512
-height = 512
+width = 1024
+height = 1024
 scale_fac = 1
 fractal_type = "Julia"
-julia_r = 0.6
-julia_i = 0.55
-contrast = 2
-colors = false
+julia_r = 0.3
+julia_i = 0.6
+contrast = 1
+colors = true
 colors_saturation = 1.0
-colors_value = 0.5
+colors_value = 0.6
