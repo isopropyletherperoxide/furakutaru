@@ -108,8 +108,7 @@ fn draw_pixel(
 ) {
     match colors {
         true => {
-            let pix_color = Color::new_hsl(z_bright as f64, saturation, value).to_rgb_string();
-            let pix_output = Color::from_str(&pix_color).unwrap();
+            let pix_output = Color::new_hsl(z_bright as f64, saturation, value);
             a.put_pixel(
                 x,
                 y,
