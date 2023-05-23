@@ -3,7 +3,7 @@ use image::{Rgb, RgbImage};
 use num::complex::Complex;
 use serde::Deserialize;
 use std::env::args;
-use std::{borrow::Borrow, str::FromStr};
+use std::borrow::Borrow;
 use toml;
 
 #[derive(Deserialize, Debug, Copy, Clone)]

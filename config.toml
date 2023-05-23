@@ -1,5 +1,5 @@
-width = 1024
-height = 1024
+width = 16384
+height = 16384
 scale_fac = 1
 fractal_type = "Julia"
 julia_r = 0.3
